@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:DataGridMAUI"
+               xmlns:syncfusion="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
+             x:Class="DataGridMAUI.MainPage">
+    <ContentPage.BindingContext>
+        <local:DealerInfoViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <OnPlatform x:Key="minimumWidth" x:TypeArguments="x:Double">
+            <On Platform="Android,iOS" Value="120"></On>
+        </OnPlatform>
+        <OnPlatform x:Key="nameColumnWidth" x:TypeArguments="x:Double">
+            <On Platform="Android,iOS" Value="230"></On>
+            <On Platform="WinUI,MacCatalyst" Value="247"></On>
+        </OnPlatform>
+    </ContentPage.Resources>
+
+    <syncfusion:SfDataGrid x:Name="dataGrid"
+                           ItemsSource="{Binding DealerInformation}"
+                           AutoGenerateColumnsMode="None"
+                           ColumnWidthMode="Fill"
+                           HorizontalScrollBarVisibility="Always"
+                           VerticalScrollBarVisibility="Always"                           
+                           HeaderRowHeight="52"
+                           RowHeight="80">
+
+        <syncfusion:SfDataGrid.DefaultStyle>
+            <syncfusion:DataGridStyle HeaderRowFontFamily="Roboto-Medium"/>
+        </syncfusion:SfDataGrid.DefaultStyle>
+
+        <syncfusion:SfDataGrid.Columns>
+
+            <syncfusion:DataGridImageColumn HeaderText="Dealer"
+                                        MappingName="DealerImage"
+                                            CellTextAlignment="Center"
+                                            HeaderTextAlignment="Center"
+                                        >
+            </syncfusion:DataGridImageColumn>
+
+            <syncfusion:DataGridNumericColumn Format="D"
+                                       HeaderText="ID"
+                                       MappingName="ProductID"
+                                       CellTextAlignment="Center"
+                                              HeaderTextAlignment="Center"
+                                       >
+            </syncfusion:DataGridNumericColumn>
+
+            <syncfusion:DataGridTextColumn
+                                       HeaderText="Name"
+                                       MappingName="DealerName"
+                HeaderTextAlignment="Center"
+                CellTextAlignment="Center"
+                                     >
+            </syncfusion:DataGridTextColumn>
+            <syncfusion:DataGridCheckBoxColumn 
+                                         HeaderText="Is Online"
+                                         MinimumWidth="{StaticResource minimumWidth}"
+                                         MappingName="IsOnline"
+                CellTextAlignment="Center"
+                HeaderTextAlignment="Center"
+                                         >
+            </syncfusion:DataGridCheckBoxColumn>
+            <syncfusion:DataGridDateColumn HeaderText="Shipped Date"
+                                           CellTextAlignment="Center"
+                                           HeaderTextAlignment="Center"
+                                         MinimumWidth="{StaticResource minimumWidth}"
+                                           MappingName="ShippedDate">
+
+            </syncfusion:DataGridDateColumn>
+            <syncfusion:DataGridTemplateColumn MappingName="Name" MinimumWidth="150">
+                <syncfusion:DataGridTemplateColumn.HeaderTemplate>
+                    <DataTemplate>
+                        <Label Text="Product Details" FontFamily="Roboto-Medium" FontSize="14" FontAttributes="Bold" HorizontalOptions="Start" VerticalOptions="Center" Margin="{OnPlatform WinUI='0,16,0,15', MacCatalyst='0,16,0,15', Android='10,8,0,7', iOS='10,8,0,7'}"></Label>
+                    </DataTemplate>
+                </syncfusion:DataGridTemplateColumn.HeaderTemplate>
+                <syncfusion:DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <ContentView
+                                VerticalOptions="Start">
+                            <StackLayout Orientation="Horizontal">
+                                <StackLayout HeightRequest="84"  Margin="{OnPlatform WinUI='0,8,4,8', iOS='8,8,4,8',Android='8,8,4,8', MacCatalyst='0,8,4,8'}"  HorizontalOptions="End"
+                                      VerticalOptions="Start">
+                                    <Label Margin="0,3,0,1"  LineBreakMode="WordWrap" HorizontalTextAlignment="End" FontSize="14"
+                                           Text="ID :"
+                                           TextColor="Black">
+                                    </Label>
+                                    <Label LineBreakMode="WordWrap" FontSize="14" VerticalOptions="Start"
+                                                Margin="0,3,0,1"
+                                               HorizontalTextAlignment="End"
+                                           Text="No :"
+                                           TextColor="Black">
+                                    </Label>
+                                    <Label LineBreakMode="WordWrap" FontFamily="Roboto" FontSize="14" VerticalOptions="Start"                                
+                                           Margin="0,3,0,1" 
+                                               HorizontalTextAlignment="End"
+                                           Text="Price :"
+                                           TextColor="Black">
+                                    </Label>
+                                </StackLayout>
+                                <StackLayout  HeightRequest="84" 
+                                              HorizontalOptions="Start" 
+                                              Margin="0,8,0,8"                                       
+                                              VerticalOptions="Start">
+                                    <Label LineBreakMode="WordWrap" Margin="0,3,0,1"
+                                           Text="{Binding ProductID}"
+                                           TextColor="Black">
+                                    </Label>
+                                    <Label LineBreakMode="WordWrap" Margin="0,3,0,1" 
+                                           Text="{Binding ProductNo}"
+                                           TextColor="Black">
+                                    </Label>
+                                    <Label LineBreakMode="WordWrap"                                              
+                                           Margin="0,3,0,1" 
+                                           Text="{Binding ProductPrice, StringFormat='{0:C}'}"                
+                                           TextColor="Black">
+                                    </Label>
+                                </StackLayout>
+                            </StackLayout>
+                        </ContentView>
+                    </DataTemplate>
+                </syncfusion:DataGridTemplateColumn.CellTemplate>
+            </syncfusion:DataGridTemplateColumn>
+        </syncfusion:SfDataGrid.Columns>
+    </syncfusion:SfDataGrid>
+</ContentPage>
